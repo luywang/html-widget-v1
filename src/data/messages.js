@@ -4,6 +4,9 @@
 // QA (Emma), and Alex as the consultant driving PRD + launch readiness.
 // Secondary threads: Morgan Collective (Alex's consultancy), the Conversational
 // AI working-group advisory engagement, and general practitioner chatter.
+
+const base = import.meta.env.BASE_URL
+
 export const messagesByContact = {
   // ── Sarah Chen — design lead ──────────────────────────────────────────
   1: [
@@ -487,7 +490,7 @@ export const messagesByContact = {
       time: 'Today 3:01 PM',
       htmlWidget: {
         type: 'video-preview',
-        thumbnail: '/images/widgets/coursera-inline.png',
+        thumbnail: `${base}images/widgets/coursera-inline.png`,
         title: 'Logistic Regression for Binary Classification',
         duration: '4 weeks',
         provider: 'Stanford University',
@@ -510,25 +513,25 @@ export const messagesByContact = {
             title: 'Deep Learning Specialization',
             description: 'Master deep learning fundamentals, neural networks, and build AI applications.',
             provider: 'deeplearning.ai',
-            thumbnail: '/images/widgets/deep-learning.jpg'
+            thumbnail: `${base}images/widgets/deep-learning.jpg`
           },
           {
             title: 'Machine Learning Engineering',
             description: 'Learn MLOps, model deployment, and production ML systems at scale.',
             provider: 'Stanford University',
-            thumbnail: '/images/widgets/ml-engineering.jpg'
+            thumbnail: `${base}images/widgets/ml-engineering.jpg`
           },
           {
             title: 'Natural Language Processing',
             description: 'Build NLP applications including chatbots, sentiment analysis, and translation.',
             provider: 'deeplearning.ai',
-            thumbnail: '/images/widgets/nlp.jpg'
+            thumbnail: `${base}images/widgets/nlp.jpg`
           },
           {
             title: 'Computer Vision Fundamentals',
             description: 'Learn image classification, object detection, and neural network architectures.',
             provider: 'University of Michigan',
-            thumbnail: '/images/widgets/computer-vision.jpg'
+            thumbnail: `${base}images/widgets/computer-vision.jpg`
           }
         ]
       }
