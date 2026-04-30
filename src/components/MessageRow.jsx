@@ -73,6 +73,20 @@ export default function MessageRow({ message, activeContact, onOpenThread }) {
   }
   const reactions = buildReactionList(message.reactions, myReactions)
 
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const handleExpandClick = (e) => {
+    e.stopPropagation()
+    setIsModalOpen(true)
+  }
+
+  const [carouselIndex, setCarouselIndex] = useState(0)
+  const handleCarouselPrev = () => {
+    setCarouselIndex(prev => Math.max(0, prev - 1))
+  }
+  const handleCarouselNext = (maxIndex) => {
+    setCarouselIndex(prev => Math.min(maxIndex, prev + 1))
+  }
+
   return (
     <div
       className={`message-row ${isMe ? 'message-mine' : ''}`}
@@ -125,6 +139,87 @@ export default function MessageRow({ message, activeContact, onOpenThread }) {
                   )}
                 </div>
               ))}
+            </div>
+          )}
+          {message.htmlWidget && message.htmlWidget.type === 'video-preview' && (
+            <>
+              <div className="html-widget video-preview-widget">
+                <div className="video-preview-thumbnail">
+                  <img src={message.htmlWidget.thumbnail} alt="Course video" />
+                  <div className="video-play-overlay">
+                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                      <circle cx="24" cy="24" r="24" fill="rgba(255, 255, 255, 0.95)" />
+                      <path d="M19 15L33 24L19 33V15Z" fill="#0056D2" />
+                    </svg>
+                  </div>
+                  <div className="video-expand-trigger" onClick={handleExpandClick} />
+                </div>
+              </div>
+              {isModalOpen && (
+                <div className="video-modal-overlay" onClick={() => setIsModalOpen(false)}>
+                  <div className="video-modal-content" onClick={(e) => e.stopPropagation()}>
+                    <button className="video-modal-close" onClick={() => setIsModalOpen(false)}>
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                        <path d="M18 6L6 18M6 6l12 12" />
+                      </svg>
+                    </button>
+                    <img src={message.htmlWidget.thumbnail} alt="Course video" />
+                  </div>
+                </div>
+              )}
+            </>
+          )}
+          {message.htmlWidget && message.htmlWidget.type === 'course-carousel' && (
+            <div className="html-widget course-carousel-widget">
+              <div className="carousel-container">
+                <div
+                  className="carousel-track"
+                  style={{ transform: `translateX(-${carouselIndex * 100}%)` }}
+                >
+                  {message.htmlWidget.courses.map((course, idx) => (
+                    <div key={idx} className="carousel-card">
+                      <div className="carousel-card-thumbnail">
+                        <img src={course.thumbnail} alt={course.title} />
+                      </div>
+                      <div className="carousel-card-content">
+                        <h4 className="carousel-card-title">{course.title}</h4>
+                        <p className="carousel-card-description">{course.description}</p>
+                        <span className="carousel-card-provider">{course.provider}</span>
+                        <button
+                          className="carousel-card-button"
+                          onClick={() => window.open('https://www.coursera.org/specializations/data-science-statistics-machine-learning', '_blank')}
+                        >
+                          Open in Coursera
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                {carouselIndex > 0 && (
+                  <button className="carousel-nav carousel-nav-prev" onClick={handleCarouselPrev}>
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M12 4L6 10l6 6" />
+                    </svg>
+                  </button>
+                )}
+                {carouselIndex < message.htmlWidget.courses.length - 1 && (
+                  <button className="carousel-nav carousel-nav-next" onClick={() => handleCarouselNext(message.htmlWidget.courses.length - 1)}>
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M8 4l6 6-6 6" />
+                    </svg>
+                  </button>
+                )}
+              </div>
+              <div className="carousel-dots">
+                {message.htmlWidget.courses.map((_, idx) => (
+                  <button
+                    key={idx}
+                    className={`carousel-dot ${idx === carouselIndex ? 'carousel-dot-active' : ''}`}
+                    onClick={() => setCarouselIndex(idx)}
+                    aria-label={`Go to course ${idx + 1}`}
+                  />
+                ))}
+              </div>
             </div>
           )}
         </div>

@@ -477,6 +477,64 @@ export const messagesByContact = {
     { id: 18, senderId: 'me', text: 'Cut. Also rebalanced the demo callout sizes — felt like the second one was getting too much visual weight.', time: 'Today 3:50 PM', reactions: [{ emoji: '📝', count: 2 }] },
   ],
 
+  // ── Coursera Learning Agent ───────────────────────────────────────────
+  31: [
+    { id: 1, senderId: 'me', text: 'I want to learn about logistic regression and apply it to binary classification tasks', time: 'Today 3:00 PM' },
+    {
+      id: 2,
+      senderId: 31,
+      text: 'I found a course that covers logistic regression and binary classification in depth. This course includes hands-on exercises and real-world applications.',
+      time: 'Today 3:01 PM',
+      htmlWidget: {
+        type: 'video-preview',
+        thumbnail: '/images/widgets/coursera-inline.png',
+        title: 'Logistic Regression for Binary Classification',
+        duration: '4 weeks',
+        provider: 'Stanford University',
+        url: 'https://www.coursera.org/learn/machine-learning'
+      }
+    },
+  ],
+
+  // ── Coursera response for draft (displayed after sending) ────────────
+  '31-follow-up': [
+    {
+      id: 1,
+      senderId: 31,
+      text: 'Here are some recommended courses in Machine Learning:',
+      time: 'Today 3:06 PM',
+      htmlWidget: {
+        type: 'course-carousel',
+        courses: [
+          {
+            title: 'Deep Learning Specialization',
+            description: 'Master deep learning fundamentals, neural networks, and build AI applications.',
+            provider: 'deeplearning.ai',
+            thumbnail: '/images/widgets/deep-learning.jpg'
+          },
+          {
+            title: 'Machine Learning Engineering',
+            description: 'Learn MLOps, model deployment, and production ML systems at scale.',
+            provider: 'Stanford University',
+            thumbnail: '/images/widgets/ml-engineering.jpg'
+          },
+          {
+            title: 'Natural Language Processing',
+            description: 'Build NLP applications including chatbots, sentiment analysis, and translation.',
+            provider: 'deeplearning.ai',
+            thumbnail: '/images/widgets/nlp.jpg'
+          },
+          {
+            title: 'Computer Vision Fundamentals',
+            description: 'Learn image classification, object detection, and neural network architectures.',
+            provider: 'University of Michigan',
+            thumbnail: '/images/widgets/computer-vision.jpg'
+          }
+        ]
+      }
+    },
+  ],
+
   // ── Dogfood feedback (group) ──────────────────────────────────────────
   24: [
     { id: 1, senderId: 17, text: 'Tried the Northwind agent this morning — the prompt suggestions on a new session are really helpful when you don\'t know what to ask.', time: 'Mon 10:05 AM', reactions: [{ emoji: '🔥', count: 4 }, { emoji: '❤️', count: 2 }] },

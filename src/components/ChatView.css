@@ -372,6 +372,316 @@
   text-decoration: underline;
 }
 
+/* ── HTML Widgets (video preview, course cards, etc.) ── */
+.html-widget {
+  margin-top: 8px;
+}
+
+.video-preview-widget {
+  border-radius: 8px;
+  overflow: hidden;
+  max-width: 400px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.video-preview-widget:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.video-preview-thumbnail {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  overflow: hidden;
+}
+
+.video-preview-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.video-play-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  transition: transform 0.2s ease;
+}
+
+.video-preview-widget:hover .video-play-overlay {
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.video-expand-trigger {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 80px;
+  height: 80px;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.video-expand-trigger:hover {
+  background: radial-gradient(circle at bottom right, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+}
+
+.video-preview-details {
+  padding: 12px;
+}
+
+.video-preview-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #242424;
+  line-height: 1.4;
+  margin: 0 0 6px 0;
+}
+
+.video-preview-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #616161;
+}
+
+.video-preview-provider {
+  font-weight: 500;
+  color: #0056D2;
+}
+
+.video-preview-separator {
+  color: #D0D0D0;
+}
+
+.video-preview-duration {
+  color: #616161;
+}
+
+/* ── Video Modal ── */
+.video-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  animation: modal-fade-in 0.2s ease;
+}
+
+@keyframes modal-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.video-modal-content {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+  animation: modal-scale-in 0.3s ease;
+}
+
+@keyframes modal-scale-in {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.video-modal-content img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  border-radius: 8px;
+}
+
+.video-modal-close {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #242424;
+  transition: background 0.2s ease;
+}
+
+.video-modal-close:hover {
+  background: #fff;
+}
+
+/* ── Course Carousel Widget ── */
+.course-carousel-widget {
+  margin-top: 8px;
+  max-width: 480px;
+}
+
+.carousel-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #fff;
+  border: 1px solid #E0E0E0;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.3s ease;
+}
+
+.carousel-card {
+  min-width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.carousel-card-thumbnail {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  overflow: hidden;
+}
+
+.carousel-card-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.carousel-card-content {
+  padding: 16px;
+  background: #fff;
+}
+
+.carousel-card-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #242424;
+  margin: 0 0 8px 0;
+  line-height: 1.4;
+}
+
+.carousel-card-description {
+  font-size: 13px;
+  color: #616161;
+  line-height: 1.5;
+  margin: 0 0 12px 0;
+}
+
+.carousel-card-provider {
+  font-size: 12px;
+  font-weight: 500;
+  color: #0056D2;
+  display: inline-block;
+  margin-bottom: 12px;
+}
+
+.carousel-card-button {
+  width: 100%;
+  padding: 10px 16px;
+  background: #0056D2;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  margin-top: 12px;
+}
+
+.carousel-card-button:hover {
+  background: #004BB5;
+}
+
+.carousel-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid #E0E0E0;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #242424;
+  transition: all 0.2s ease;
+  z-index: 2;
+}
+
+.carousel-nav:hover {
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.carousel-nav-prev {
+  left: 12px;
+}
+
+.carousel-nav-next {
+  right: 12px;
+}
+
+.carousel-dots {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  padding: 12px;
+  background: #fff;
+  border-top: 1px solid #F0F0F0;
+}
+
+.carousel-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  background: #D0D0D0;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.2s ease;
+}
+
+.carousel-dot:hover {
+  background: #A0A0A0;
+}
+
+.carousel-dot-active {
+  background: #0056D2;
+  width: 24px;
+  border-radius: 4px;
+}
+
 /* ── Activity-navigation highlight ──
    When the user clicks an Activity event, ChatView scrolls the triggering
    message into view and briefly flashes a tinted background + left accent

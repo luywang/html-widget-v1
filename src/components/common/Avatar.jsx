@@ -27,7 +27,7 @@ export default function Avatar({ contact, size = 36 }) {
           className="avatar-img"
           style={{ width: size, height: size, borderRadius: radius }}
         />
-      ) : contact.isAgent ? agentLogos[contact.logo](logoSize) : contact.initials}
+      ) : contact.isAgent && contact.logo ? agentLogos[contact.logo](logoSize) : contact.initials}
       {contact.status && (
         <span
           className={`status-dot status-${contact.status}`}

@@ -133,7 +133,7 @@ export default function ChatList({ activeChatId, onSelectChat, readChatIds }) {
             <ChevronDown size={12} />
           </span>
           <span className="pinned-label pinned-label-bold">Quick views</span>
-          <span className="quick-views-badge">46</span>
+          <span className="quick-views-badge">4</span>
         </div>
       </div>
 

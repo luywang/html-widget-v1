@@ -52,6 +52,9 @@ function parseDraft(d) {
 // CLAUDE.md for policy on this flow.
 const JIRA_FLOW_ENABLED = false
 
+// ── Scripted Coursera demo flow (enabled) ──────────────────────────────────
+const COURSERA_FLOW_ENABLED = true
+
 const jiraScript = [
   {
     text: 'You have 1 blocker for the April 25 milestone — the PR is in review with all signoffs and CI passing. Want me to merge it?',
@@ -88,6 +91,7 @@ export default function ChatView({
 }) {
   const activeContact = contacts.find((c) => c.id === activeChatId)
   const baseMessages = messagesByContact[activeChatId] || []
+  const courseraFollowUp = messagesByContact['31-follow-up'] || []
   const participantCount = activeContact.isGroup || activeContact.isChannel
     ? activeContact.memberCount ?? new Set(baseMessages.map((m) => m.senderId)).size
     : 2
@@ -452,6 +456,42 @@ export default function ChatView({
     const isJiraInvocation = JIRA_FLOW_ENABLED && chatId === 11 && sentText.toLowerCase().includes('jira')
     if (isJiraInvocation) {
       startJiraDemoFlow(sentText)
+      return
+    }
+
+    // Coursera demo flow — triggered when sending the draft message
+    const isCourseraFlow = COURSERA_FLOW_ENABLED && chatId === 31 && sentText.trim() === 'Recommend more courses like this'
+    if (isCourseraFlow) {
+      // Send the user's message
+      const myMessage = {
+        id: `extra-${Date.now()}`,
+        senderId: 'me',
+        text: sentText,
+        time: nowTimeStr(),
+      }
+      setExtraMessages((prev) => ({
+        ...prev,
+        [bucket]: [...(prev[bucket] || []), myMessage],
+      }))
+
+      // Show typing indicator then send the carousel response
+      setMainTypingAgentId(chatId)
+      setTimeout(() => {
+        setMainTypingAgentId((prev) => (prev === chatId ? null : prev))
+        // Add the agent's carousel response
+        const agentResponse = courseraFollowUp[0]
+        if (agentResponse) {
+          const responseMessage = {
+            ...agentResponse,
+            id: `extra-${Date.now()}-coursera`,
+            time: nowTimeStr(),
+          }
+          setExtraMessages((prev) => ({
+            ...prev,
+            [bucket]: [...(prev[bucket] || []), responseMessage],
+          }))
+        }
+      }, 2500)
       return
     }
 
