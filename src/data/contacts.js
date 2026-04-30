@@ -17,7 +17,7 @@ export const contacts = [
   { id: 3, name: 'Emma Larsen', initials: 'EL', color: '#E74856', status: 'away', avatar: `${base}avatars/emma-larsen.jpg` },
   { id: 4, name: 'Jira', initials: null, color: '#0052CC', status: null, isAgent: true, logo: 'jira', avatar: `${base}avatars/jira.png`, description: 'Issue tracking and project management' },
   { id: 5, name: 'Emily Watson', initials: 'EW', color: '#00B294', status: 'available', avatar: `${base}avatars/emily-watson.jpg` },
-  { id: 31, name: 'Coursera Learning Agent', initials: 'CL', color: '#0056D2', status: null, isAgent: true, description: 'Personalized learning and course recommendations' },
+  { id: 31, name: 'Coursera Learning Agent', initials: 'CL', color: '#0056D2', status: null, isAgent: true, avatar: `${base}avatars/coursera.png`, description: 'Personalized learning and course recommendations' },
   { id: 6, name: 'Design Sprint Team', initials: 'DS', color: '#8764B8', status: null, isGroup: true },
   { id: 7, name: 'James Kim', initials: 'JK', color: '#CA5010', status: 'available', avatar: `${base}avatars/james-kim.jpg` },
   { id: 8, name: 'Frontend Guild', initials: 'FG', color: '#498205', status: null, isGroup: true },
