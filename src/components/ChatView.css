@@ -378,8 +378,9 @@
 }
 
 .video-preview-widget {
+  position: relative;
   border-radius: 8px;
-  overflow: hidden;
+  overflow: visible;
   max-width: 400px;
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -718,4 +719,50 @@
 
 .session-source-banner-link:hover {
   text-decoration: underline;
+}
+
+/* ── Video widget tooltips (positioned relative to widget) ── */
+.video-widget-play-tooltip {
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: 16px;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+.video-widget-expand-tooltip {
+  position: absolute;
+  left: 100%;
+  bottom: 0px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: 16px;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+.video-widget-play-tooltip .coursera-tooltip-arrow-wrapper,
+.video-widget-expand-tooltip .coursera-tooltip-arrow-wrapper {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+.video-widget-play-tooltip .coursera-tooltip-text,
+.video-widget-expand-tooltip .coursera-tooltip-text {
+  background: #FFFFFF;
+  border: 2px solid #0056D2;
+  border-radius: 8px;
+  padding: 12px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #242424;
+  white-space: nowrap;
+  box-shadow: 0 6px 20px rgba(0, 86, 210, 0.25), 0 2px 8px rgba(0, 0, 0, 0.15);
 }

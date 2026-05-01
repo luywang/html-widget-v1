@@ -88,6 +88,14 @@ export default function ChatView({
   dynamicSessionMessages,
   navIntent,
   clearNavIntent,
+  onCourseraMessageSent,
+  onCourseraPlayClick,
+  onCourseraExpandClick,
+  onCourseraExpandAreaClick,
+  onCourseraModalClose,
+  showCourseraPlayTooltip,
+  showCourseraExpandTooltip,
+  showCourseraSendTooltip,
 }) {
   const activeContact = contacts.find((c) => c.id === activeChatId)
   const baseMessages = messagesByContact[activeChatId] || []
@@ -474,6 +482,9 @@ export default function ChatView({
         [bucket]: [...(prev[bucket] || []), myMessage],
       }))
 
+      // Hide the send tooltip
+      onCourseraMessageSent?.()
+
       // Show typing indicator then send the carousel response
       setMainTypingAgentId(chatId)
       setTimeout(() => {
@@ -585,6 +596,12 @@ export default function ChatView({
                   onOpenThread={() => {
                     setChannelThreadPostId((prev) => (prev === post.id ? null : post.id))
                   }}
+                  onCourseraPlayClick={onCourseraPlayClick}
+                  onCourseraExpandClick={onCourseraExpandClick}
+                  onCourseraExpandAreaClick={onCourseraExpandAreaClick}
+                  onCourseraModalClose={onCourseraModalClose}
+                  showCourseraPlayTooltip={showCourseraPlayTooltip}
+                  showCourseraExpandTooltip={showCourseraExpandTooltip}
                 />
               ))}
               <div ref={messagesEndRef} />
@@ -615,6 +632,12 @@ export default function ChatView({
                   message={msg}
                   activeContact={activeContact}
                   onOpenThread={openJiraThread}
+                  onCourseraPlayClick={onCourseraPlayClick}
+                  onCourseraExpandClick={onCourseraExpandClick}
+                  onCourseraExpandAreaClick={onCourseraExpandAreaClick}
+                  onCourseraModalClose={onCourseraModalClose}
+                  showCourseraPlayTooltip={showCourseraPlayTooltip}
+                  showCourseraExpandTooltip={showCourseraExpandTooltip}
                 />
               ))}
               <div ref={messagesEndRef} />
@@ -636,6 +659,7 @@ export default function ChatView({
             onClearMention={() => setComposeMention(null)}
             onSend={handleSend}
             isChannel={isChannel}
+            showCourseraSendTooltip={showCourseraSendTooltip}
           />
         </div>
       </div>

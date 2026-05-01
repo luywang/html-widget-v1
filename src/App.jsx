@@ -5,6 +5,7 @@ import ChatList from './components/ChatList'
 import ChatView from './components/ChatView'
 import ActivityList from './components/ActivityList'
 import TitleBar from './components/TitleBar'
+import { DemoArrow } from './components/common'
 import './App.css'
 
 export default function App() {
@@ -13,6 +14,10 @@ export default function App() {
   const [readChatIds, setReadChatIds] = useState(() => new Set([1]))
   const [sessions, setSessions] = useState(initialSessions)
   const [dynamicSessionMessages, setDynamicSessionMessages] = useState({})
+  const [showCourseraTooltip, setShowCourseraTooltip] = useState(true)
+  const [showCourseraPlayTooltip, setShowCourseraPlayTooltip] = useState(true)
+  const [showCourseraExpandTooltip, setShowCourseraExpandTooltip] = useState(false)
+  const [showCourseraSendTooltip, setShowCourseraSendTooltip] = useState(false)
   // Activity feed: persist which events the user has opened so unread decorations clear.
   const [activityEvents, setActivityEvents] = useState(seedActivityEvents)
   const [activeActivityId, setActiveActivityId] = useState(null)
@@ -24,6 +29,25 @@ export default function App() {
   const selectChat = useCallback((chatId) => {
     setActiveChatId(chatId)
     setReadChatIds(prev => (prev.has(chatId) ? prev : new Set(prev).add(chatId)))
+    if (chatId === 31) {
+      setShowCourseraTooltip(false)
+    }
+  }, [])
+
+  const handleCourseraPlayClick = useCallback(() => {
+    setShowCourseraPlayTooltip(false)
+  }, [])
+
+  const handleCourseraExpandClick = useCallback(() => {
+    setShowCourseraExpandTooltip(true)
+  }, [])
+
+  const handleCourseraExpandAreaClick = useCallback(() => {
+    setShowCourseraExpandTooltip(false)
+  }, [])
+
+  const handleCourseraModalClose = useCallback(() => {
+    setShowCourseraSendTooltip(true)
   }, [])
 
   const navigateToChat = useCallback((chatId, { showSessions, sessionId } = {}) => {
@@ -104,7 +128,25 @@ export default function App() {
           dynamicSessionMessages={dynamicSessionMessages}
           navIntent={navIntent}
           clearNavIntent={clearNavIntent}
+          onCourseraMessageSent={() => setShowCourseraSendTooltip(false)}
+          onCourseraPlayClick={handleCourseraPlayClick}
+          onCourseraExpandClick={handleCourseraExpandClick}
+          onCourseraExpandAreaClick={handleCourseraExpandAreaClick}
+          onCourseraModalClose={handleCourseraModalClose}
+          showCourseraPlayTooltip={showCourseraPlayTooltip}
+          showCourseraExpandTooltip={showCourseraExpandTooltip}
+          showCourseraSendTooltip={showCourseraSendTooltip}
         />
+        {showCourseraTooltip && activeView === 'chat' && (
+          <div className="coursera-tooltip-overlay">
+            <div className="coursera-tooltip-arrow-wrapper">
+              <DemoArrow direction="left" size={24} />
+            </div>
+            <div className="coursera-tooltip-text">
+              Click here to start learning!
+            </div>
+          </div>
+        )}
       </div>
     </div>
   )

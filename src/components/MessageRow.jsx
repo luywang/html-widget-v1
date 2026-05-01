@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { agentLogos } from '../shared/agentLogos'
 import { contacts, currentUser } from '../data/contacts'
-import { Avatar, LinkCard, PrivateDisclaimer } from './common'
+import { Avatar, LinkCard, PrivateDisclaimer, DemoArrow } from './common'
 import MessageActions from './MessageActions'
 
 // Combine seeded-in-data reactions with the current user's reactions into an
@@ -53,7 +53,7 @@ function ThreadReplyBadge({ reply, onClick }) {
   )
 }
 
-export default function MessageRow({ message, activeContact, onOpenThread }) {
+export default function MessageRow({ message, activeContact, onOpenThread, onCourseraPlayClick, onCourseraExpandClick, onCourseraExpandAreaClick, onCourseraModalClose, showCourseraPlayTooltip, showCourseraExpandTooltip }) {
   const isMe = message.senderId === 'me'
   const isMultiParty = activeContact.isGroup || activeContact.isChannel
   const sender = isMe
@@ -74,9 +74,36 @@ export default function MessageRow({ message, activeContact, onOpenThread }) {
   const reactions = buildReactionList(message.reactions, myReactions)
 
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false)
+  const [hasShownSendTooltip, setHasShownSendTooltip] = useState(false)
+
+  const handleVideoClick = (e) => {
+    e.stopPropagation()
+    if (!isVideoPlaying) {
+      // First click: change to pause button, hide play tooltip, show expand tooltip
+      setIsVideoPlaying(true)
+      onCourseraPlayClick?.()
+      onCourseraExpandClick?.()
+    }
+  }
+
   const handleExpandClick = (e) => {
     e.stopPropagation()
-    setIsModalOpen(true)
+    if (isVideoPlaying) {
+      // Click on expand area: hide tooltip and open modal
+      onCourseraExpandAreaClick?.()
+      setIsModalOpen(true)
+    }
+  }
+
+  const handleModalClose = () => {
+    setIsModalOpen(false)
+    setIsVideoPlaying(false)  // Change pause back to play
+    // Only show send tooltip the first time modal is closed
+    if (!hasShownSendTooltip) {
+      setHasShownSendTooltip(true)
+      onCourseraModalClose?.()
+    }
   }
 
   const [carouselIndex, setCarouselIndex] = useState(0)
@@ -143,22 +170,51 @@ export default function MessageRow({ message, activeContact, onOpenThread }) {
           )}
           {message.htmlWidget && message.htmlWidget.type === 'video-preview' && (
             <>
-              <div className="html-widget video-preview-widget">
+              <div className="html-widget video-preview-widget" onClick={handleVideoClick}>
                 <div className="video-preview-thumbnail">
                   <img src={message.htmlWidget.thumbnail} alt="Course video" />
                   <div className="video-play-overlay">
                     <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
                       <circle cx="24" cy="24" r="24" fill="rgba(255, 255, 255, 0.95)" />
-                      <path d="M19 15L33 24L19 33V15Z" fill="#0056D2" />
+                      {isVideoPlaying ? (
+                        // Pause icon
+                        <>
+                          <rect x="17" y="14" width="4" height="20" fill="#0056D2" />
+                          <rect x="27" y="14" width="4" height="20" fill="#0056D2" />
+                        </>
+                      ) : (
+                        // Play icon
+                        <path d="M19 15L33 24L19 33V15Z" fill="#0056D2" />
+                      )}
                     </svg>
                   </div>
                   <div className="video-expand-trigger" onClick={handleExpandClick} />
                 </div>
+                {showCourseraPlayTooltip && (
+                  <div className="video-widget-play-tooltip">
+                    <div className="coursera-tooltip-arrow-wrapper">
+                      <DemoArrow direction="left" size={24} />
+                    </div>
+                    <div className="coursera-tooltip-text">
+                      Click play to watch the video inline.
+                    </div>
+                  </div>
+                )}
+                {showCourseraExpandTooltip && (
+                  <div className="video-widget-expand-tooltip">
+                    <div className="coursera-tooltip-arrow-wrapper">
+                      <DemoArrow direction="left" size={24} />
+                    </div>
+                    <div className="coursera-tooltip-text">
+                      Click expand to watch in modal
+                    </div>
+                  </div>
+                )}
               </div>
               {isModalOpen && (
-                <div className="video-modal-overlay" onClick={() => setIsModalOpen(false)}>
+                <div className="video-modal-overlay" onClick={handleModalClose}>
                   <div className="video-modal-content" onClick={(e) => e.stopPropagation()}>
-                    <button className="video-modal-close" onClick={() => setIsModalOpen(false)}>
+                    <button className="video-modal-close" onClick={handleModalClose}>
                       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                         <path d="M18 6L6 18M6 6l12 12" />
                       </svg>

@@ -1,4 +1,4 @@
-import { IconButton, Send } from './common'
+import { IconButton, Send, DemoArrow } from './common'
 import { copilotLogo } from '../shared/assets'
 import './Compose.css'
 
@@ -17,6 +17,7 @@ export default function Compose({
   onClearMention,
   onSend,
   isChannel,
+  showCourseraSendTooltip,
 }) {
   const handleKeyDown = (e) => {
     if (e.key === 'Backspace' && value === '' && mention) {
@@ -78,9 +79,21 @@ export default function Compose({
               </svg>
             </button>
             <div className="compose-divider" />
-            <IconButton label="Send" className="send-btn" onClick={onSend}>
-              <Send />
-            </IconButton>
+            <div className="send-btn-wrapper">
+              <IconButton label="Send" className="send-btn" onClick={onSend}>
+                <Send />
+              </IconButton>
+              {showCourseraSendTooltip && (
+                <div className="send-button-tooltip">
+                  <div className="coursera-tooltip-text">
+                    Click Send to get more courses
+                  </div>
+                  <div className="coursera-tooltip-arrow-wrapper">
+                    <DemoArrow direction="down" size={24} />
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

@@ -53,6 +53,7 @@ function SectionHeader({ label, collapsed, onToggle }) {
 export default function ChatList({ activeChatId, onSelectChat, readChatIds }) {
   const isUnread = (bold, contactId) => bold && !readChatIds?.has(contactId)
   const [collapsed, setCollapsed] = useState(() => new Set())
+
   const isCollapsed = (key) => collapsed.has(key)
   const toggleSection = (key) => setCollapsed((prev) => {
     const next = new Set(prev)
@@ -64,6 +65,7 @@ export default function ChatList({ activeChatId, onSelectChat, readChatIds }) {
   const renderItem = (chat) => {
     const contact = contacts.find(c => c.id === chat.contactId)
     const unread = isUnread(chat.bold, contact.id)
+
     return (
       <div
         key={contact.id}

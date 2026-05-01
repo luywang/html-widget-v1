@@ -9,4 +9,126 @@
   flex: 1;
   display: flex;
   overflow: hidden;
+  position: relative;
+}
+
+/* Coursera tooltip floating over chat pane */
+.coursera-tooltip-overlay {
+  position: absolute;
+  left: 450px; /* Nav rail (~48px) + Chat list (360px) + some margin */
+  top: 330px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+.coursera-tooltip-overlay .coursera-tooltip-arrow-wrapper {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+.coursera-tooltip-overlay .coursera-tooltip-text {
+  background: #FFFFFF;
+  border: 2px solid #0056D2;
+  border-radius: 8px;
+  padding: 12px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #242424;
+  white-space: nowrap;
+  box-shadow: 0 6px 20px rgba(0, 86, 210, 0.25), 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Play tooltip - points to play button on video (centered on widget) */
+.coursera-play-tooltip-overlay {
+  position: absolute;
+  left: 950px;
+  top: 310px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+.coursera-play-tooltip-overlay .coursera-tooltip-arrow-wrapper {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+.coursera-play-tooltip-overlay .coursera-tooltip-text {
+  background: #FFFFFF;
+  border: 2px solid #0056D2;
+  border-radius: 8px;
+  padding: 12px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #242424;
+  white-space: nowrap;
+  box-shadow: 0 6px 20px rgba(0, 86, 210, 0.25), 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Expand tooltip - points to expand area on video */
+.coursera-expand-tooltip-overlay {
+  position: absolute;
+  left: 950px;
+  top: 410px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+.coursera-expand-tooltip-overlay .coursera-tooltip-arrow-wrapper {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+.coursera-expand-tooltip-overlay .coursera-tooltip-text {
+  background: #FFFFFF;
+  border: 2px solid #0056D2;
+  border-radius: 8px;
+  padding: 12px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #242424;
+  white-space: nowrap;
+  box-shadow: 0 6px 20px rgba(0, 86, 210, 0.25), 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Send tooltip - above Send button */
+.coursera-send-tooltip-overlay {
+  position: absolute;
+  right: 20px;
+  bottom: 90px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+.coursera-send-tooltip-overlay .coursera-tooltip-text {
+  background: #FFFFFF;
+  border: 2px solid #0056D2;
+  border-radius: 8px;
+  padding: 12px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #242424;
+  white-space: nowrap;
+  box-shadow: 0 6px 20px rgba(0, 86, 210, 0.25), 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.coursera-send-tooltip-overlay .coursera-tooltip-arrow-wrapper {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
 }
